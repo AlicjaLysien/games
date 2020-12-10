@@ -1,0 +1,66 @@
+<html>
+
+<head>
+<title>My first canvas game</title>
+</head>
+
+<body>
+
+    <canvas id="game" width="900" height="600">
+
+        <script>
+            var canvas = document.getElementById("game")
+            var canvasContext = canvas.getContext('2d')
+            var ballX = canvas.width / 2
+            var ballY = canvas.height / 2
+            var ballSpeedX = 10
+            var ballSpeedY = 5
+            var paddleLeftY = (canvas.height/2) -50
+            const PADDLE_HEIGHT = 100
+
+            window.onload = function () {
+                var framesPerSecond = 30
+                setInterval(function() {
+                moveBall()
+                drawElements()
+                }, 1000/framesPerSecond)
+            }
+
+            function drawElements() {
+                rect(0,0, canvas.width, canvas.height, "black")
+                 rect(0, paddleLeftY, 10, PADDLE_HEIGHT, "white")   
+               //  rect(canvas.width-10, (canvas.height/2) -50, 10, 100, "white")  
+                 circle(ballX, ballY, 10, "yellow")
+            }
+
+            function rect(x, y, width, height, color){
+                canvasContext.fillStyle = color
+                canvasContext.fillRect(x, y, width, height)
+            }
+
+            function circle(x, y, radius, color){
+                canvasContext.fillStyle = color
+                canvasContext.beginPath() // without this function the ball is multiplicated
+                canvasContext.arc(x, y, radius, 0, Math.PI*2, true) // create a circle 
+                canvasContext.fill()
+            }
+
+           function moveBall(){
+                ballX = ballX + ballSpeedX // for place X I add change of place 
+                if (ballX < 0 || ballX > canvas.width)
+                {
+                    ballSpeedX = -ballSpeedX
+                }
+
+                ballY = ballY + ballSpeedY
+                if (ballY < 0 || ballY > canvas.height)
+                {
+                    ballSpeedY = -ballSpeedY
+                }
+            }
+
+        </script>
+
+</body>
+
+</html>
